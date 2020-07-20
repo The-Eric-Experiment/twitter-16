@@ -24,6 +24,7 @@
     "qrcode": "^1.4.4",
     "query-string": "^6.13.1",
     "sharp": "^0.25.4",
+    "ts-node": "^8.10.2",
     "yaml": "^1.10.0"
   },
   "devDependencies": {
