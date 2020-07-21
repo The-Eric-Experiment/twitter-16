@@ -9,7 +9,7 @@ import * as QRCode from "qrcode";
 import { Writable, PassThrough } from "stream";
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 app.use(cookieParser());
 app.set("trust proxy", 1); // trust first proxy
