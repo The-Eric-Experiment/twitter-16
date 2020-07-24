@@ -35,7 +35,7 @@ export function frame<TModel = {}>(route: string, opts: RenderOpts<TModel>) {
           <table width="700" border="0" cellpadding="0" cellspacing="0">
             <tr>
               <td colspan="3">
-                <img src="/twitter/static/header.jpg" usemap="#mainmenu" />
+                <img src="/twitter/static/header.jpg" usemap="#mainmenu" border="0" />
               </td>
             </tr>
       
@@ -55,7 +55,7 @@ export function frame<TModel = {}>(route: string, opts: RenderOpts<TModel>) {
               <td valign="top">
                 ${opts.render(model)}
               </td>
-              <td valign="top" width="150">
+              <td valign="top" width="120">
                 ${trends(model.trends)}
               </td>
             </tr>
@@ -99,6 +99,7 @@ export function frame<TModel = {}>(route: string, opts: RenderOpts<TModel>) {
         return;
       }
 
+      res.type("html");
       res.send(
         this.render({
           ...model,
@@ -141,6 +142,7 @@ export function frame<TModel = {}>(route: string, opts: RenderOpts<TModel>) {
         return;
       }
 
+      res.type("html");
       res.send(
         this.render({
           ...model,

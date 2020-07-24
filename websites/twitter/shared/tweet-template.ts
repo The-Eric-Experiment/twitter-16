@@ -86,10 +86,10 @@ export function tweet(tweet: Tweet): string {
   return /*template*/ `
     <tr>
       <td>
-        <table width="100%">
+        <table width="100%" cellspacing="0" cellpadding="0" border="0">
           <tr>
             <td valign="top" width="30%" rowspan="3">
-              <table cellspacing="0">
+              <table cellspacing="0" cellpadding="0" border="0">
                 <tr>
                   <td>
                     <img
@@ -131,8 +131,12 @@ export function tweet(tweet: Tweet): string {
           </tr>
           <tr>
             <td>
-              <button>Retweet</button>
-              <button>Like</button>
+              <form>
+                <input type="submit">Retweet</input>
+              </form>
+              <form>
+                <input type="submit">Like</input>
+              </form>
             </td>
           </tr>
         </table>

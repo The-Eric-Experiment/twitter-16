@@ -45,6 +45,7 @@ export default render("/login", {
 
     const loginUrl = `https://twitter.com/oauth/authorize?oauth_token=${oauthToken}`;
 
+    res.type("html");
     res.send(
       this.render({
         oauthToken,
@@ -78,6 +79,7 @@ export default render("/login", {
       return;
     }
 
+    res.type("html");
     res.send(
       this.render({
         oauthToken: req.body.oauthToken,
