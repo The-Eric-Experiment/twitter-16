@@ -15,8 +15,10 @@
     "noUnusedParameters": false,
     "pretty": true,
     "noFallthroughCasesInSwitch": true,
-    "allowUnreachableCode": false
+    "allowUnreachableCode": false,
+    "jsxFactory": "tag",
+    "jsx": "react"
   },
   "include": ["**/*.ts", "@types/*", "@types/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist/**/*"]
 }

@@ -1,7 +1,7 @@
 import { Express, NextFunction, Request, Response } from "express";
 import * as path from "path";
 import * as fs from "fs";
-import { RenderThis, RenderOpts } from "./types";
+import { Route } from "./types";
 
 var normalizedPath = path.join(__dirname, "../websites");
 
@@ -17,18 +17,37 @@ function wrapHandler(
 function website(website: string, app: Express) {
   const routes = Array.from(
     new Set(fs.readdirSync(path.join(normalizedPath, website)))
-  ).filter((o) => path.extname(o) === ".ts" || path.extname(o) === ".js");
+  ).filter((o) => [".ts", ".tsx", ".js"].includes(path.extname(o)));
 
   routes.forEach((route) => {
     const js = require(["../websites", website, route].join("/"));
-    const definition: RenderOpts<unknown> = js.default || js;
+    const component: Route = js.default;
 
-    const appRoute = ["/", website, definition.route].join("");
-    const svc: RenderThis<unknown> = {
-      render: definition.render,
-    };
-    app.get(appRoute, wrapHandler(definition.get.bind(svc)));
-    app.post(appRoute, wrapHandler(definition.post.bind(svc)));
+    const appRoute = ["/", website, component.route].join("");
+    const loadData = (requestType: "GET" | "POST") =>
+      wrapHandler(async (req, res) => {
+        const response = component({
+          req,
+          res,
+          requestType,
+        });
+
+        let result: string = "";
+
+        if (response instanceof Promise) {
+          result = await response;
+        } else {
+          result = response;
+        }
+
+        if (!result) {
+          return;
+        }
+
+        res.send(result);
+      });
+    app.get(appRoute, loadData("GET"));
+    app.post(appRoute, loadData("POST"));
   });
 
   app.get(["/", website, "/static/*"].join(""), (req, res) => {

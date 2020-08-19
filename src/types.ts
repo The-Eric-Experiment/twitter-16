@@ -1,12 +1,18 @@
 import { Request, Response } from "express";
 
-export type RenderThis<TModel> = {
-  render(model: TModel): string;
-};
+export interface Component<P = {}> {
+  (props: PropsWithChildren<P>): Promise<string | null> | string | null;
+}
 
-export type RenderOpts<TModel> = {
+export interface Route
+  extends Component<{
+    req: Request;
+    res: Response;
+    requestType: "POST" | "GET";
+  }> {
   route: string;
-  render(model: TModel): string;
-  get(this: RenderThis<TModel>, req: Request, res: Response): Promise<void>;
-  post(this: RenderThis<TModel>, req: Request, res: Response): Promise<void>;
+}
+
+export type PropsWithChildren<TProps> = TProps & {
+  children?: string[];
 };

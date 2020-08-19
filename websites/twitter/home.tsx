@@ -1,12 +1,15 @@
 import { getTweets } from "./shared/api";
-import { frame } from "./shared/frame-template";
-import { tweet } from "./shared/tweet-template";
-import { Tweet } from "./shared/types";
+import { Frame } from "./shared/frame";
+import { Tweet } from "./shared/tweet";
+import { Tweet as TweetData } from "./shared/types";
 import { Request } from "express";
 import { DateTime } from "luxon";
+import { Route } from "../../src/types";
+import { createRequestModel } from "../../src/model";
+import { tag } from "../../src/tag";
 
 export type Model = {
-  tweets: Tweet[];
+  tweets: TweetData[];
 };
 
 async function cache<T>(
@@ -33,36 +36,40 @@ async function cache<T>(
   return session.result;
 }
 
-export default frame<Model>("/home", {
-  render(model: Model) {
-    return /*template*/ `
+const Home: Route = async ({ req, res, requestType }) => {
+  const getData = async () => {
+    const accessToken = req.cookies.twitter_access_token;
+    const accessTokenSecret = req.cookies.twitter_access_token_secret;
+    if (!accessToken) {
+      return { tweets: [] };
+    }
+
+    const tweets = await cache("home-getTweets", req, 3, () =>
+      getTweets(accessToken, accessTokenSecret)
+    );
+    return { tweets };
+  };
+
+  const model = await createRequestModel<Model>(
+    requestType,
+    getData,
+    async () => {
+      console.log(req.body);
+      return getData();
+    }
+  );
+
+  return (
+    <Frame cookies={req.cookies} session={req.session} res={res}>
       <table width="100%">
-        ${model.tweets.map(tweet).join("")}
+        {model.tweets.map((tweet) => (
+          <Tweet tweet={tweet} />
+        ))}
       </table>
-    `;
-  },
-  async get(req, res) {
-    const accessToken = req.cookies.twitter_access_token;
-    const accessTokenSecret = req.cookies.twitter_access_token_secret;
-    if (!accessToken) {
-      return { tweets: [] };
-    }
+    </Frame>
+  );
+};
 
-    const tweets = await cache("home-getTweets", req, 3, () =>
-      getTweets(accessToken, accessTokenSecret)
-    );
-    return { tweets };
-  },
-  async post(req, res) {
-    const accessToken = req.cookies.twitter_access_token;
-    const accessTokenSecret = req.cookies.twitter_access_token_secret;
-    if (!accessToken) {
-      return { tweets: [] };
-    }
+Home.route = "/home";
 
-    const tweets = await cache("home-getTweets", req, 3, () =>
-      getTweets(accessToken, accessTokenSecret)
-    );
-    return { tweets };
-  },
-});
+export default Home;
