@@ -1,7 +1,15 @@
-import { tag, Route, PropsWithChildren } from "@retro-web/view";
+import { tag, Route, PropsWithChildren, ComponentBody } from "@retro-web/view";
 
 function Title(props: PropsWithChildren<{ title: string }>) {
-  return <h1>{props.title}</h1>;
+  return (
+    <ComponentBody>
+      <p>
+        <h1>{props.title}</h1>
+        {"The place"}
+        <p>For the news</p>
+      </p>
+    </ComponentBody>
+  );
 }
 
 export const Home: Route = ({}) => {

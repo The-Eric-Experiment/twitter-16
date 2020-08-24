@@ -102,7 +102,7 @@ export const Frame: Component<FrameProps> = async ({
               <SideMenu profile={model.profile} />
             </td>
 
-            <td valign="top">{children.join("")}</td>
+            <td valign="top">{children}</td>
             <td valign="top" width="120">
               <Trends trends={model.trends} />
             </td>

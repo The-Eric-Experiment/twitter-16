@@ -1,5 +1,6 @@
 import { Express, NextFunction, Request, Response } from "express";
 import { Route } from "@retro-web/view";
+import { render } from "@retro-web/view/renderer";
 
 export type WebsiteOptions = {
   staticFilesPath?: string;
@@ -21,11 +22,13 @@ export function website(
   routes.forEach((route) => {
     const loadData = (requestType: "GET" | "POST") =>
       wrapHandler(async (req, res) => {
-        const response = route({
+        const tree = await route({
           req,
           res,
           requestType,
         });
+
+        const response = render(tree);
 
         let result: string = "";
 
@@ -34,10 +37,7 @@ export function website(
         } else {
           result = response;
         }
-
-        if (!result) {
-          return;
-        }
+        console.log(result);
 
         res.send(result);
       });

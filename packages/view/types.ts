@@ -1,7 +1,11 @@
 import { Request, Response } from "express";
 
+export type ComponentReturnType = TagDefinition | undefined;
+
 export interface Component<P = {}> {
-  (props: PropsWithChildren<P>): Promise<string | null> | string | null;
+  (props: PropsWithChildren<P>):
+    | ComponentReturnType
+    | Promise<ComponentReturnType>;
 }
 
 export interface Route
@@ -13,6 +17,14 @@ export interface Route
   route: string;
 }
 
+export type Child = TagDefinition | string | undefined;
+
 export type PropsWithChildren<TProps> = TProps & {
-  children?: string[];
+  children?: Child[];
+};
+
+export type TagDefinition = {
+  tag: Component | string;
+  props?: Record<string, any>;
+  children?: Child[];
 };
