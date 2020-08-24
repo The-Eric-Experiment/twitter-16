@@ -1,12 +1,11 @@
-import { getTweets } from "./shared/api";
-import { Frame } from "./shared/frame";
-import { Tweet } from "./shared/tweet";
-import { Tweet as TweetData } from "./shared/types";
+import { createRequestModel } from "@retro-web/server";
+import { Route, tag } from "@retro-web/view";
 import { Request } from "express";
 import { DateTime } from "luxon";
-import { Route } from "../../src/types";
-import { createRequestModel } from "../../src/model";
-import { tag } from "../../src/tag";
+import { getTweets } from "../api";
+import { Frame } from "../components/frame";
+import { Tweet } from "../components/tweet";
+import { Tweet as TweetData } from "../types";
 
 export type Model = {
   tweets: TweetData[];
@@ -36,7 +35,7 @@ async function cache<T>(
   return session.result;
 }
 
-const Home: Route = async ({ req, res, requestType }) => {
+export const Home: Route = async ({ req, res, requestType }) => {
   const getData = async () => {
     const accessToken = req.cookies.twitter_access_token;
     const accessTokenSecret = req.cookies.twitter_access_token_secret;
@@ -70,6 +69,4 @@ const Home: Route = async ({ req, res, requestType }) => {
   );
 };
 
-Home.route = "/home";
-
-export default Home;
+Home.route = "/";

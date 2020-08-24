@@ -1,8 +1,7 @@
-import { AuthBase } from "./shared/types";
-import { getOAuthAccessToken, getOAuthRequestToken } from "./shared/api";
-import { Route } from "../../src/types";
-import { createRequestModel } from "../../src/model";
-import { tag } from "../../src/tag";
+import { AuthBase } from "../types";
+import { getOAuthAccessToken, getOAuthRequestToken } from "../api";
+import { Route, tag } from "@retro-web/view";
+import { createRequestModel } from "@retro-web/server";
 
 type Model = AuthBase & {
   success?: boolean;
@@ -12,7 +11,7 @@ type Model = AuthBase & {
   results: {};
 };
 
-const Login: Route = async ({ req, res, requestType }) => {
+export const Login: Route = async ({ req, res, requestType }) => {
   const model = await createRequestModel<Model>(
     requestType,
     async () => {
@@ -39,25 +38,23 @@ const Login: Route = async ({ req, res, requestType }) => {
         req.body.pin
       );
 
+      console.log("failure");
       console.log(result);
       console.log("got here");
       res.cookie("twitter_access_token", result.oauthAccessToken, {
         maxAge: 72 * 60 * 60 * 1000,
         httpOnly: true,
       });
-      console.log("set cookie");
       res.cookie("twitter_access_token_secret", result.oauthAccessTokenSecret, {
         maxAge: 72 * 60 * 60 * 1000,
         httpOnly: true,
       });
-      console.log("set cookie");
       if (result) {
         console.log("there is result");
-        res.redirect("/twitter/home");
+        res.redirect("/");
         console.log("redirected");
         return undefined;
       }
-      console.log("and here");
       return {
         oauthToken: req.body.oauthToken,
         oauthTokenSecret: req.body.oauthTokenSecret,
@@ -88,7 +85,7 @@ const Login: Route = async ({ req, res, requestType }) => {
         <p>Or scan the qrcode:</p>
         <img src={`/qrcode/150/150?url=${model.loginUrl}`} />
 
-        <form action="/twitter/login" method="POST">
+        <form action="/login" method="POST">
           <input
             type="hidden"
             id="oauthToken"
@@ -112,5 +109,3 @@ const Login: Route = async ({ req, res, requestType }) => {
 };
 
 Login.route = "/login";
-
-export default Login;

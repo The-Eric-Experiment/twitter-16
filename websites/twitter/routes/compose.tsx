@@ -1,12 +1,11 @@
-import { createRequestModel } from "../../src/model";
-import { Route } from "../../src/types";
-import { createTweet } from "./shared/api";
-import { Frame } from "./shared/frame";
-import { tag } from "../../src/tag";
+import { createTweet } from "../api";
+import { tag, Route } from "@retro-web/view";
+import { createRequestModel } from "@retro-web/server";
+import { Frame } from "../components/frame";
 
 export type Model = {};
 
-const Compose: Route = async ({ req, res, requestType }) => {
+export const Compose: Route = async ({ req, res, requestType }) => {
   await createRequestModel<Model>(
     requestType,
     async () => {
@@ -14,15 +13,15 @@ const Compose: Route = async ({ req, res, requestType }) => {
     },
     async () => {
       const status = req.body.tweet;
-      const accessToken = req.cookies.twitter_access_token;
-      const accessTokenSecret = req.cookies.twitter_access_token_secret;
+      const accessToken = req.cookies.cookies_access_token;
+      const accessTokenSecret = req.cookies.cookies_access_token_secret;
       if (!accessToken) {
         return { tweets: [] };
       }
 
       await createTweet({ status }, accessToken, accessTokenSecret);
 
-      res.redirect("/twitter/home");
+      res.redirect("/home");
       return null;
     }
   );
@@ -30,7 +29,7 @@ const Compose: Route = async ({ req, res, requestType }) => {
   return (
     <Frame cookies={req.cookies} session={req.session} res={res}>
       <h3>Compose a Tweet</h3>
-      <form action="/twitter/compose" method="POST">
+      <form action="/compose" method="POST">
         <textarea
           width="100%"
           id="tweet"
@@ -53,5 +52,3 @@ const Compose: Route = async ({ req, res, requestType }) => {
 };
 
 Compose.route = "/compose";
-
-export default Compose;

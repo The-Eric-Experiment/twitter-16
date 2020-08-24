@@ -8,10 +8,7 @@ import {
   Profile,
   CreateTweetRequest,
 } from "./types";
-import {
-  TWITTER_CONSUMER_KEY,
-  TWITTER_CONSUMER_SECRET,
-} from "../../../src/config";
+import { TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET } from "./config";
 
 const consumer = new OAuth(
   "https://twitter.com/oauth/request_token",

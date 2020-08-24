@@ -1,28 +1,12 @@
-import * as express from "express";
-import { urlencoded } from "body-parser";
-import websites from "./websites";
-import * as cookieParser from "cookie-parser";
-import * as session from "express-session";
+import { server } from "@retro-web/server";
+import { Home } from "./routes/home";
+import { Login } from "./routes/login";
+import { Compose } from "./routes/compose";
 import * as sharp from "sharp";
-import axios from "axios";
-import * as QRCode from "qrcode";
+// import axios from "axios";
 import { Writable, PassThrough } from "stream";
-
-const app = express();
-const port = process.env.PORT || 3001;
-
-app.use(cookieParser());
-app.set("trust proxy", 1); // trust first proxy
-app.use(
-  session({
-    secret: "oldstuff",
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false, httpOnly: true },
-  })
-);
-
-app.use(urlencoded({ extended: true }));
+import * as QRCode from "qrcode";
+import * as path from "path";
 
 const streamToBuffer = (stream: Writable) => {
   return new Promise<Buffer>((resolve, reject) => {
@@ -56,23 +40,8 @@ const streamToBuffer = (stream: Writable) => {
   });
 };
 
-app.get("/img/:width/:height", async (req, res) => {
-  const url = req.query.url as string;
-  const width = parseInt(req.params.width);
-  const height = parseInt(req.params.height);
-  const response = await axios.get(url, { responseType: "arraybuffer" });
-  const result = await sharp(response.data as Buffer)
-    .resize(width, height, {
-      fit: "cover",
-    })
-    .jpeg({
-      quality: 50,
-      chromaSubsampling: "4:4:4",
-    })
-    .toBuffer();
-
-  res.type("jpg");
-  res.send(result);
+const app = server("twitter", [Home, Login, Compose], {
+  staticFilesPath: path.join(__dirname, "/static"),
 });
 
 app.get("/qrcode/:width/:height", async (req, res) => {
@@ -95,9 +64,3 @@ app.get("/qrcode/:width/:height", async (req, res) => {
   res.type("jpg");
   res.send(result);
 });
-
-websites(app);
-
-app.listen(port, () =>
-  console.log(`Example app listening at http://localhost:${port}`)
-);

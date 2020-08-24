@@ -17,8 +17,19 @@
     "noFallthroughCasesInSwitch": true,
     "allowUnreachableCode": false,
     "jsxFactory": "tag",
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": "./",
+    "paths": {
+      "*": ["@types/*"]
+    }
   },
-  "include": ["**/*.ts", "@types/*", "@types/**/*"],
+  "include": [
+    "packages/**/*.ts",
+    "packages/**/*.tsx",
+    "websites/**/*.ts",
+    "websties/**/*.tsx",
+    "@types/*",
+    "@types/**/*"
+  ],
   "exclude": ["node_modules", "dist/**/*"]
 }

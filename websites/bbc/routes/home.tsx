@@ -1,11 +1,10 @@
-import { tag } from "../../src/tag";
-import { Route, PropsWithChildren } from "../../src/types";
+import { tag, Route, PropsWithChildren } from "@retro-web/view";
 
 function Title(props: PropsWithChildren<{ title: string }>) {
   return <h1>{props.title}</h1>;
 }
 
-const Home: Route = ({}) => {
+export const Home: Route = ({}) => {
   return (
     <html>
       <head>
@@ -19,5 +18,3 @@ const Home: Route = ({}) => {
 };
 
 Home.route = "/";
-
-export default Home;

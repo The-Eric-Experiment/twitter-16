@@ -1,6 +1,5 @@
-import { Trends as TrendsType } from "./types";
-import { Component } from "../../../src/types";
-import { tag } from "../../../src/tag";
+import { Component, tag } from "@retro-web/view";
+import { Trends as TrendsType } from "../types";
 
 export const Trends: Component<{ trends: TrendsType }> = ({ trends }) => {
   return (

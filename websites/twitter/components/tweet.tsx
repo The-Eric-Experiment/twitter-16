@@ -1,7 +1,5 @@
-import { Tweet as TweetData } from "./types";
-import { Component } from "../../../src/types";
-import { ComponentBody } from "../../../src/component-body";
-import { tag } from "../../../src/tag";
+import { Tweet as TweetData } from "../types";
+import { Component, tag, ComponentBody } from "@retro-web/view";
 
 export const Tweet: Component<{ tweet: TweetData }> = ({ tweet }) => {
   return (
@@ -54,7 +52,7 @@ export const Tweet: Component<{ tweet: TweetData }> = ({ tweet }) => {
           </tr>
           <tr>
             <td>
-              <form method="POST" action="/twitter/home">
+              <form method="POST" action="/home">
                 <input
                   type="hidden"
                   id="tweet_id"
@@ -69,7 +67,7 @@ export const Tweet: Component<{ tweet: TweetData }> = ({ tweet }) => {
                 />
                 <input type="submit" value="Retweet" />
               </form>
-              <form method="POST" action="/twitter/home">
+              <form method="POST" action="/home">
                 <input
                   type="hidden"
                   id="tweet_id"
@@ -92,6 +90,7 @@ export const Tweet: Component<{ tweet: TweetData }> = ({ tweet }) => {
     </tr>
   );
 };
+
 function TweetBody({ tweet }: { tweet: TweetData }): string {
   let text = tweet.full_text || tweet.text;
 
@@ -122,7 +121,7 @@ function TweetBody({ tweet }: { tweet: TweetData }): string {
 
   if (tweet.entities.hashtags) {
     text = tweet.entities.hashtags.reduce((acc, item, index) => {
-      const a = `<a href="/twitter/search?q=#${item.text}">#${item.text}</a>`;
+      const a = `<a href="/search?q=#${item.text}">#${item.text}</a>`;
       const oldSize = item.indices[1] - item.indices[0];
       const difference = a.length - oldSize;
 

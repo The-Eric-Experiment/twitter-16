@@ -1,7 +1,5 @@
-import { Profile } from "./types";
-import { Component } from "../../../src/types";
-import { ComponentBody } from "../../../src/component-body";
-import { tag } from "../../../src/tag";
+import { Component, ComponentBody, tag } from "@retro-web/view";
+import { Profile } from "../types";
 
 export const SideMenu: Component<{ profile: Profile }> = ({ profile }) => {
   return (
@@ -9,7 +7,7 @@ export const SideMenu: Component<{ profile: Profile }> = ({ profile }) => {
       <table width="120" cellspacing={0} cellpadding={0} border={0}>
         <tr>
           <td>
-            <img src="/twitter/static/menu-top.jpg" />
+            <img src="/static/menu-top.jpg" />
           </td>
         </tr>
         <tr>
@@ -41,9 +39,9 @@ export const SideMenu: Component<{ profile: Profile }> = ({ profile }) => {
         </tr>
         <tr>
           <td>
-            <a href="/twitter/compose">
+            <a href="/compose">
               <img
-                src="/twitter/static/menu-compose.jpg"
+                src="/static/menu-compose.jpg"
                 border={0}
                 width="120"
                 height="29"
@@ -53,9 +51,9 @@ export const SideMenu: Component<{ profile: Profile }> = ({ profile }) => {
         </tr>
         <tr>
           <td>
-            <a href="/twitter/home">
+            <a href="/home">
               <img
-                src="/twitter/static/menu-home.jpg"
+                src="/static/menu-home.jpg"
                 border={0}
                 width="120"
                 height="19"
@@ -65,9 +63,9 @@ export const SideMenu: Component<{ profile: Profile }> = ({ profile }) => {
         </tr>
         <tr>
           <td>
-            <a href="/twitter/messages">
+            <a href="/messages">
               <img
-                src="/twitter/static/menu-messages.jpg"
+                src="/static/menu-messages.jpg"
                 border={0}
                 width="120"
                 height="19"
@@ -77,9 +75,9 @@ export const SideMenu: Component<{ profile: Profile }> = ({ profile }) => {
         </tr>
         <tr>
           <td>
-            <a href="/twitter/messages">
+            <a href="/messages">
               <img
-                src="/twitter/static/menu-explore.jpg"
+                src="/static/menu-explore.jpg"
                 border={0}
                 width="120"
                 height="19"
@@ -89,13 +87,13 @@ export const SideMenu: Component<{ profile: Profile }> = ({ profile }) => {
         </tr>
         <tr>
           <td>
-            <img src="/twitter/static/menu-bottom.jpg" border={0} />
+            <img src="/static/menu-bottom.jpg" border={0} />
           </td>
         </tr>
       </table>
       <br />
-      <img src="/twitter/static/netscap4.gif" />
-      <img src="/twitter/static/ie.gif" width="88" />
+      <img src="/static/netscap4.gif" />
+      <img src="/static/ie.gif" width="88" />
     </ComponentBody>
   );
 };

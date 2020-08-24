@@ -1,0 +1,12 @@
+{
+  "name": "@retro-web/view",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.ts",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.6"
+  },
+  "devDependencies": {}
+}
