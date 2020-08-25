@@ -37,7 +37,6 @@ export function website(
         } else {
           result = response;
         }
-        console.log(result);
 
         res.send(result);
       });

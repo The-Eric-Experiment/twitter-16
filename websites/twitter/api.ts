@@ -56,7 +56,6 @@ export const getOAuthAccessToken = (model: AuthBase, pin: string) => {
 };
 
 export const getTweets = (accessToken: string, secret: string) => {
-  console.log("called");
   return new Promise<Tweet[]>((resolve, reject) => {
     consumer.get(
       "https://api.twitter.com/1.1/statuses/home_timeline.json?count=10&tweet_mode=extended&extended_tweet=full_text&extended=full_text",

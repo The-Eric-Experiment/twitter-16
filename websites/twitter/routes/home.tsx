@@ -23,9 +23,7 @@ async function cache<T>(
         .diff(DateTime.fromFormat(session.lastCall, "FF"))
         .as("minutes")
     : cacheMinutes + 1;
-  console.log(timeDiff);
   if (timeDiff > 3) {
-    console.log("create cache");
     session.result = await call();
     session.lastCall = DateTime.local().toFormat("FF");
     req.session[id] = session;
@@ -53,7 +51,6 @@ export const Home: Route = async ({ req, res, requestType }) => {
     requestType,
     getData,
     async () => {
-      console.log(req.body);
       return getData();
     }
   );

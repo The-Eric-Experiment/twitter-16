@@ -148,17 +148,18 @@ function TweetBody({ tweet }: { tweet: TweetData }): string {
       {text.trim()}
       {text.trim() ? <br /> : ""}
       {tweet.entities.media &&
-        tweet.entities.media
-          .map((item) => (
-            <a href={item.media_url}>
-              {item.type === "photo" ? (
-                <img src={`/img/200/150?url=${item.media_url}`} />
-              ) : (
-                ""
-              )}
-            </a>
-          ))
-          .join("<br />")}
+        tweet.entities.media.map((item) => (
+          <a href={item.media_url}>
+            {item.type === "photo" ? (
+              <img
+                src={`/img/200/150?url=${item.media_url}`}
+                alt="tweet-image"
+              />
+            ) : (
+              ""
+            )}
+          </a>
+        ))}
     </ComponentBody>
   );
 }

@@ -37,10 +37,6 @@ export const Login: Route = async ({ req, res, requestType }) => {
         },
         req.body.pin
       );
-
-      console.log("failure");
-      console.log(result);
-      console.log("got here");
       res.cookie("twitter_access_token", result.oauthAccessToken, {
         maxAge: 72 * 60 * 60 * 1000,
         httpOnly: true,
@@ -50,9 +46,7 @@ export const Login: Route = async ({ req, res, requestType }) => {
         httpOnly: true,
       });
       if (result) {
-        console.log("there is result");
         res.redirect("/");
-        console.log("redirected");
         return undefined;
       }
       return {
