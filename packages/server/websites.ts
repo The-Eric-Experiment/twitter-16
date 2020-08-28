@@ -38,6 +38,10 @@ export function website(
           result = response;
         }
 
+        if (!result) {
+          return;
+        }
+
         res.send(result);
       });
     app.get(route.route, loadData("GET"));

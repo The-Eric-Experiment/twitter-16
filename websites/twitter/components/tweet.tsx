@@ -1,93 +1,90 @@
 import { Tweet as TweetData } from "../types";
 import { Component, tag, ComponentBody } from "@retro-web/view";
 
+export const ProfilePic: Component<{ tweet: TweetData }> = ({ tweet }) => {
+  return (
+    <table cellpadding={4}>
+      <tr>
+        <td>
+          <img
+            src={`/img/40/40?url=${tweet.user.profile_image_url}`}
+            width="40"
+            height="40"
+          />
+        </td>
+      </tr>
+    </table>
+  );
+};
+
 export const Tweet: Component<{ tweet: TweetData }> = ({ tweet }) => {
   return (
-    <tr>
-      <td>
-        <table width="100%" cellspacing={0} cellpadding={0} border={0}>
-          <tr>
-            <td valign="top" width="30%" rowspan={3}>
-              <table cellspacing={0} cellpadding={0} border={0}>
-                <tr>
-                  <td>
-                    <img
-                      src={`/img/40/40?url=${tweet.user.profile_image_url}`}
-                      width="40"
-                      height="40"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <font size={2}>
-                      <b>{tweet.user.name}</b>
-                    </font>
-                    <br />
-                    <font size={1}>@{tweet.user.screen_name}</font>
-                    <br />
-                    <font size={1}>
-                      {" "}
-                      <b>Likes:</b> {tweet.favorite_count}{" "}
-                    </font>
-                    <br />
-                    <font size={1}>
-                      {" "}
-                      <b>Retweets:</b> {tweet.retweet_count}{" "}
-                    </font>
-                  </td>
-                </tr>
-              </table>
-            </td>
-            <td valign="top">
-              <TweetBody tweet={tweet} />
-            </td>
-          </tr>
-          <tr>
-            <td valign="bottom">
-              <font size={2}>
-                <b>{tweet.created_at}</b>
-              </font>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <form method="POST" action="/home">
-                <input
-                  type="hidden"
-                  id="tweet_id"
-                  name="tweet_id"
-                  value={tweet.id_str}
-                />
-                <input
-                  type="hidden"
-                  id="tweet_action"
-                  name="tweet_action"
-                  value="rt"
-                />
-                <input type="submit" value="Retweet" />
-              </form>
-              <form method="POST" action="/home">
-                <input
-                  type="hidden"
-                  id="tweet_id"
-                  name="tweet_id"
-                  value={tweet.id_str}
-                />
-                <input
-                  type="hidden"
-                  id="tweet_action"
-                  name="tweet_action"
-                  value="like"
-                />
-                <input type="submit" value="Like" />
-              </form>
-            </td>
-          </tr>
-        </table>
-        <hr />
-      </td>
-    </tr>
+    <ComponentBody>
+      <table width="100%" cellpadding={0} cellspacing={2} border={0}>
+        <tr>
+          <td rowspan={3} valign="top" width="52">
+            <ProfilePic tweet={tweet} />
+          </td>
+          <td valign="top" height="22">
+            <font size={2}>
+              <b>{tweet.user.name}</b>
+            </font>{" "}
+            <font size={1}>@{tweet.user.screen_name}</font>
+          </td>
+          <td rowspan={3} valign="top" width="65">
+            <font size={1}>
+              <b>Likes:</b> {tweet.retweet_count.toString()}{" "}
+            </font>
+            <form width="100%" method="POST" action="/home">
+              <input
+                type="hidden"
+                id="tweet_id"
+                name="tweet_id"
+                value={tweet.id_str}
+              />
+              <input
+                type="hidden"
+                id="tweet_action"
+                name="tweet_action"
+                value="rt"
+              />
+              <input width="100%" type="submit" value="Retweet" />
+            </form>
+            <font size={1}>
+              <b>Likes:</b> {tweet.favorite_count.toString()}{" "}
+            </font>
+            <form width="100%" method="POST" action="/home">
+              <input
+                type="hidden"
+                id="tweet_id"
+                name="tweet_id"
+                value={tweet.id_str}
+              />
+              <input
+                type="hidden"
+                id="tweet_action"
+                name="tweet_action"
+                value="like"
+              />
+              <input width="100%" type="submit" value="Like" />
+            </form>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <TweetBody tweet={tweet} />
+          </td>
+        </tr>
+        <tr>
+          <td valign="bottom" height="22">
+            <font size={2}>
+              <b>{tweet.created_at}</b>
+            </font>
+          </td>
+        </tr>
+      </table>
+      <hr />
+    </ComponentBody>
   );
 };
 

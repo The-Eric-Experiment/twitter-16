@@ -57,11 +57,9 @@ export const Home: Route = async ({ req, res, requestType }) => {
 
   return (
     <Frame cookies={req.cookies} session={req.session} res={res}>
-      <table width="100%">
-        {model.tweets.map((tweet) => (
-          <Tweet tweet={tweet} />
-        ))}
-      </table>
+      {model.tweets.map((tweet) => (
+        <Tweet tweet={tweet} />
+      ))}
     </Frame>
   );
 };
