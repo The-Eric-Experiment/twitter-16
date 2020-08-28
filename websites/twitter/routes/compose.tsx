@@ -35,7 +35,7 @@ export const Compose: Route = async ({ req, res, requestType }) => {
           id="tweet"
           name="tweet"
           maxlength={280}
-          cols={74}
+          cols={58}
           rows={5}
         ></textarea>
         <br />

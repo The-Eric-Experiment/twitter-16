@@ -1,6 +1,5 @@
 import { Express, NextFunction, Request, Response } from "express";
-import { Route } from "@retro-web/view";
-import { render } from "@retro-web/view/renderer";
+import { Route, render } from "@retro-web/view";
 
 export type WebsiteOptions = {
   staticFilesPath?: string;

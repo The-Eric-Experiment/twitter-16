@@ -1,4 +1,4 @@
-import { Component, TagDefinition, Child } from "./types";
+import { Component, TagDefinition, Child } from "../types/components";
 
 export function tag(
   tagName: string | Component,

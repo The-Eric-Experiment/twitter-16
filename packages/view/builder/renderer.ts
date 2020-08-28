@@ -1,5 +1,5 @@
-import { TagDefinition } from "./types";
-import { NO_TAG } from "./constants";
+import { TagDefinition } from "../types/components";
+import { NO_TAG, FULL_ENDING_TAGS } from "../constants/html";
 
 function renderTag(
   tag: string,
@@ -20,7 +20,7 @@ function renderTag(
     }, block);
   }
 
-  if (renderedChildren) {
+  if (renderedChildren || FULL_ENDING_TAGS.includes(tag.toLowerCase())) {
     block += `>${renderedChildren}</${tag}>`;
   } else {
     block += " />";
