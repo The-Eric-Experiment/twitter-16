@@ -5,6 +5,7 @@ import { Trends } from "./trends";
 import { Profile, Trends as TrendsData, UserSettings } from "../types";
 import { Component, tag } from "@retro-web/view";
 import { createModel } from "@retro-web/server";
+import { PageLayout } from "../../../packages/layout";
 
 export type FrameModel = {
   profile: Profile;
@@ -59,56 +60,25 @@ export const Frame: Component<FrameProps> = async ({
     return undefined;
   }
 
+  const renderTopHeader = () => {
+    return <img src="/static/header.jpg" usemap="#mainmenu" border={0} />;
+  };
+  const renderWelcome = () => {
+    return <hr />;
+  };
+
   return (
-    <html>
-      <head>
-        <title>Twitter</title>
-      </head>
-      <body
-        bgcolor="#ffffff"
-        text="#000000"
-        topmargin={0}
-        leftmargin={0}
-        rightmargin={0}
-      >
-        <map name="mainmenu">
-          <area shape="RECT" coords="1,0,300,66" href="/" />
-          <area shape="RECT" coords="360,0,420,66" href="/" />
-          <area shape="RECT" coords="421,0,481,66" href="/explore" />
-        </map>
-        <table width="700" border={0} cellpadding={0} cellspacing={0}>
-          <tr>
-            <td colspan={3}>
-              <img src="/static/header.jpg" usemap="#mainmenu" border={0} />
-            </td>
-          </tr>
-
-          <tr>
-            <td colspan={3} bgcolor="#F5F8FA">
-              <marquee>Welcome to twitter!</marquee>
-            </td>
-          </tr>
-
-          <tr>
-            <td colspan={3}>
-              <font size={1} color="#ffffff">
-                a
-              </font>
-            </td>
-          </tr>
-
-          <tr>
-            <td width="120" fgcolor="#ffffff" valign="top">
-              <SideMenu profile={model.profile} />
-            </td>
-
-            <td valign="top">{children}</td>
-            <td valign="top" width="120">
-              <Trends trends={model.trends} />
-            </td>
-          </tr>
-        </table>
-      </body>
-    </html>
+    <PageLayout
+      title="Twitter"
+      mainMenuMap={[
+        { coords: "1,0,300,66", href: "/" },
+        { coords: "360,0,420,66", href: "/" },
+        { coords: "421,0,481,66", href: "/explore" },
+      ]}
+      leftContent={<SideMenu profile={model.profile} />}
+      rightContent={<Trends trends={model.trends} />}
+      heading={[renderTopHeader(), renderWelcome()]}
+      children={children}
+    />
   );
 };

@@ -5,7 +5,11 @@ export function tag(
   props?: Record<string, any>,
   ...children: (Child | Child[])[]
 ): TagDefinition | undefined {
-  const mergedChildren = children && [].concat.apply([], children);
+  const consolidatedChildren = ((props && props.children) || children) as
+    | Array<string | TagDefinition | Child[]>
+    | undefined;
+  const mergedChildren =
+    consolidatedChildren && [].concat.apply([], consolidatedChildren);
   return {
     tag: tagName,
     props,

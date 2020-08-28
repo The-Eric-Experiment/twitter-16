@@ -1,0 +1,12 @@
+{
+  "name": "@retro-web/layout",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.ts",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@retro-web/view": "^0.0.1"
+  },
+  "devDependencies": {}
+}
