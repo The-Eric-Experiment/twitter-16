@@ -72,8 +72,8 @@ export const Frame: Component<FrameProps> = async ({
         rightmargin={0}
       >
         <map name="mainmenu">
-          <area shape="RECT" coords="1,0,300,66" href="/home" />
-          <area shape="RECT" coords="360,0,420,66" href="/home" />
+          <area shape="RECT" coords="1,0,300,66" href="/" />
+          <area shape="RECT" coords="360,0,420,66" href="/" />
           <area shape="RECT" coords="421,0,481,66" href="/explore" />
         </map>
         <table width="700" border={0} cellpadding={0} cellspacing={0}>

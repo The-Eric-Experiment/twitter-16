@@ -2,6 +2,13 @@ import { Component, tag } from "@retro-web/view";
 import { Trends as TrendsType } from "../types";
 
 export const Trends: Component<{ trends: TrendsType }> = ({ trends }) => {
+  const trim = (name: string) => {
+    if (name.length > 20) {
+      return name.substr(0, 17) + "...";
+    }
+    return name;
+  };
+
   return (
     <table width="100%" cellspacing={0} cellpadding={0} border={0}>
       <tr>
@@ -15,7 +22,7 @@ export const Trends: Component<{ trends: TrendsType }> = ({ trends }) => {
         <tr>
           <td>
             <font size={2}>
-              <a href={trend.url}>{trend.name}</a>
+              <a href={trend.url}>{trim(trend.name)}</a>
             </font>
           </td>
         </tr>
