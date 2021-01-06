@@ -15,7 +15,7 @@
     "@retro-web/server": "^0.0.1",
     "@retro-web/view": "^0.0.1",
     "@retro-web/layout": "^0.0.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "luxon": "^1.24.1",
     "oauth": "^0.9.15",
     "yaml": "^1.10.0",
